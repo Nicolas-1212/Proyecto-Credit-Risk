@@ -138,6 +138,52 @@ df_limpio['historial_vs_edad'] = df['cb_person_cred_hist_length'] / df['person_a
 df_limpio['interes_estimado'] = df['loan_amnt'] * (df['loan_int_rate'] / 100)
 # %% [markdown]
 # ## 6. Filtrado y condiciones en pandas  (Integrante B)
+# Filtrado y condiciones en pandas
+tasa_global = df_limpio["loan_status"].mean() * 100
+print(f"Tasa de incumplimiento global: {tasa_global:.2f}%")
+
+#  1. Préstamos con interés estimado muy alto (percentil 90) 
+p90 = df_limpio["interes_estimado"].quantile(0.90)
+f1 = df_limpio[df_limpio["interes_estimado"] > p90]
+tasa1 = f1["loan_status"].mean() * 100
+print(f"\n1) Interés estimado > {p90:,.0f}: {len(f1)} préstamos, incumplimiento {tasa1:.2f}%")
+print(f"   Conclusión: los préstamos con mayor costo en intereses incumplen "
+      f"{'más' if tasa1 > tasa_global else 'menos'} que el promedio ({tasa_global:.2f}%).")
+
+#  2. Historial crediticio largo respecto a la edad 
+f2 = df_limpio[df_limpio["historial_vs_edad"] > 0.30]
+tasa2 = f2["loan_status"].mean() * 100
+print(f"\n2) Historial > 30% de la edad: {len(f2)} personas, incumplimiento {tasa2:.2f}%")
+print(f"   Conclusión: tener un historial largo para su edad "
+      f"{'no reduce' if tasa2 >= tasa_global else 'reduce'} el incumplimiento frente al promedio.")
+
+# 3. Registros inconsistentes (edad o historial imposibles) 
+f3 = df_limpio[(df_limpio["person_age"] > 100) |
+               (df_limpio["historial_vs_edad"] >= 1) |
+               (df_limpio["person_emp_length"] > df_limpio["person_age"] - 14)]
+print(f"\n3) Registros con edad/antigüedad/historial imposibles: {len(f3)}")
+print(f3[["person_age", "person_emp_length", "cb_person_cred_hist_length"]].head())
+print("   Conclusión: son errores de captura que conviene revisar o excluir antes de modelar.")
+
+# 4. Arrendatarios con carga alta sobre el ingreso 
+f4 = df_limpio[(df_limpio["person_home_ownership"] == "RENT") &
+               (df_limpio["loan_percent_income"] > 0.40)]
+tasa4 = f4["loan_status"].mean() * 100
+print(f"\n4) RENT y préstamo > 40% del ingreso: {len(f4)} personas, incumplimiento {tasa4:.2f}%")
+print(f"   Conclusión: quienes arriendan y deben mucho respecto a su ingreso "
+      f"tienen incumplimiento de {tasa4:.2f}%, {'superior' if tasa4 > tasa_global else 'inferior'} al global.")
+
+# 5. Historial corto y monto de préstamo alto 
+mediana_monto = df_limpio["loan_amnt"].median()
+f5 = df_limpio[(df_limpio["historial_vs_edad"] < 0.10) &
+               (df_limpio["loan_amnt"] > mediana_monto)]
+tasa5 = f5["loan_status"].mean() * 100
+dif5 = tasa5 - tasa_global
+print(f"\n5) Historial < 10% de la edad y monto > {mediana_monto:,.0f}: {len(f5)} préstamos, incumplimiento {tasa5:.2f}%")
+print(f"   Conclusión: la tasa de incumplimiento de este grupo es {tasa5:.2f}% frente a "
+      f"{tasa_global:.2f}% del total, es decir, {abs(dif5):.2f} puntos "
+      f"{'por encima' if dif5 > 0 else 'por debajo'} de la tasa global. "
+      f"{'Pedir montos altos con poca trayectoria crediticia es más riesgoso que el promedio.' if dif5 > 0 else 'Pedir montos altos con poca trayectoria crediticia es menos riesgoso que el promedio.'}")
 
 # %% [markdown]
 # ## 7. Agrupación con groupby  (Integrante A)
