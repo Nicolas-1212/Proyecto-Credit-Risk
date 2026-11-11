@@ -141,7 +141,35 @@ df_limpio['interes_estimado'] = df['loan_amnt'] * (df['loan_int_rate'] / 100)
 
 # %% [markdown]
 # ## 7. Agrupación con groupby  (Integrante A)
+# --- Resultado 1: Perfil financiero según el estado del préstamo ---
+print("1. Promedio de ingresos, monto y tasa de interés por estado del préstamo (loan_status):")
+res_1 = df_limpio.groupby('loan_status')[['person_income', 'loan_amnt', 'loan_int_rate']].mean()
+print(res_1)
+print("\nConclusión 1: Las personas que incumplen el préstamo (1) ganan en promedio menos dinero, pero asumen tasas de interés notablemente más altas que las que sí pagan (0).\n")
 
+# --- Resultado 2: Tasa de incumplimiento según la calificación del préstamo ---
+print("2. Porcentaje de incumplimiento (default) según el grado del préstamo (loan_grade):")
+res_2 = (df_limpio.groupby('loan_grade')['loan_status'].mean() * 100).sort_values(ascending=False)
+print(res_2)
+print("\nConclusión 2: A medida que la calificación crediticia empeora (de A hacia G), la tasa de incumplimiento se dispara, demostrando que el 'loan_grade' es un predictor altamente efectivo del riesgo.\n")
+
+# --- Resultado 3: Riesgo según el tipo de vivienda ---
+print("3. Tasa de incumplimiento según la situación de vivienda (person_home_ownership):")
+res_3 = (df_limpio.groupby('person_home_ownership')['loan_status'].mean() * 100).sort_values(ascending=False)
+print(res_3)
+print("\nConclusión 3: Los arrendatarios (RENT) presentan un riesgo de impago considerablemente mayor frente a quienes son dueños de su casa (OWN) o pagan una hipoteca (MORTGAGE).\n")
+
+# Resultado 4: Monto mediano del préstamo según su propósito
+print("4. Monto mediano solicitado según el propósito del préstamo (loan_intent):")
+res_4 = df_limpio.groupby('loan_intent')['loan_amnt'].median().sort_values(ascending=False)
+print(res_4)
+print("\nConclusión 4: Los préstamos destinados a consolidación de deudas o negocios exigen montos medianos más altos que aquellos solicitados para fines personales o educación.\n")
+
+# Resultado 5: Relación préstamo/ingreso según historial de impago previo
+print("5. Porcentaje del ingreso comprometido según historial de impagos (cb_person_default_on_file):")
+res_5 = df_limpio.groupby('cb_person_default_on_file')['loan_percent_income'].mean() * 100
+print(res_5)
+print("\nConclusión 5: Los clientes que ya tienen un historial de incumplimiento previo (Y) tienden a endeudarse comprometiendo un mayor porcentaje de sus ingresos anuales frente a los que tienen el historial limpio (N).\n")
 # %% [markdown]
 # ## 8. Visualizaciones  (Integrante B)
 
