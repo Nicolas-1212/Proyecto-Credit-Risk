@@ -12,7 +12,9 @@ df = pd.read_csv("datos/credit_risk_dataset.csv")
 
 # %% [markdown]
 # ## 1. Carga e inspección inicial de los datos  (Integrante A)
-
+print(f"Dimensiones del dataset: filas: {df.shape[0]}, columnas: {df.shape[1]}")
+print(df.dtypes)
+print(df.describe(include='all'))
 # %% [markdown]
 # ## 2. Manejo de datos faltantes  (Integrante B)
 
