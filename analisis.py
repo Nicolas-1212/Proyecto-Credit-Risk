@@ -1,6 +1,6 @@
 # %% [markdown]
-# # Título del proyecto
-# Integrantes: Nombre A, Nombre B
+# # Proyecto-Credit-Risk
+# Integrantes: Nicolas Ramirez (A), Samuel Arteaga (B)
 
 # %%
 import pandas as pd
