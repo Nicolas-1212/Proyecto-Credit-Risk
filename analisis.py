@@ -94,6 +94,38 @@ plt.tight_layout()
 plt.show()
 # %% [markdown]
 # ## 4. Valores inconsistentes y duplicados  (Integrante B)
+# Valores inconsistentes en texto
+cols_texto = df_limpio.select_dtypes(include=["object", "string"]).columns.tolist()
+print("Columnas de texto:", cols_texto)
+
+#Estandarizacion de el dataframe
+antes = df_limpio[cols_texto].copy()
+
+for col in cols_texto:
+    df_limpio[col] = df_limpio[col].str.strip().str.upper()
+
+cambios = (antes != df_limpio[cols_texto]).sum()
+print("Valores modificados por columna al estandarizar:")
+print(cambios)
+
+##Analisis de los  duplicados
+filas_antes = len(df_limpio)
+n_duplicados = df_limpio.duplicated().sum()
+print(f"Filas duplicadas exactas: {n_duplicados} "
+      f"({n_duplicados / filas_antes * 100:.2f}%)")
+
+## Eliminar duplicados
+df_limpio = df_limpio.drop_duplicates(keep="first")
+
+print(f"\nFilas antes:   {filas_antes}")
+print(f"Filas después: {len(df_limpio)}")
+print(f"Filas eliminadas: {filas_antes - len(df_limpio)}")
+print("Duplicados restantes:", df_limpio.duplicated().sum())
+
+print("\nLa decisión es eliminar los duplicados exactos: son registros repetidos "
+      "del mismo préstamo y dejarlos sesgaría el análisis y los modelos.")
+print("Dimensiones de df_limpio:", df_limpio.shape)
+
 
 # %% [markdown]
 # ## 5. Creación de variables  (Integrante A)
