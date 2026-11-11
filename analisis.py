@@ -79,13 +79,13 @@ plt.tight_layout()
 plt.show()
 # %% [markdown]
 # ## 3. Identificación de outliers  (Integrante A)
-columnas_numericas = df.select_dtypes(include=[np.number]).columns
+columnas_numericas = df_limpio.select_dtypes(include=[np.number]).columns
 num_variables = len(columnas_numericas)
 num_filas = (num_variables + 2) // 3
 fig, axes = plt.subplots(num_filas, 3, figsize=(15, 5 * num_filas))
 axes = axes.flatten()
 for i, col in enumerate(columnas_numericas):
-    sns.boxplot(y=df[col], ax=axes[i], color='royalblue')
+    sns.boxplot(y=df_limpio[col], ax=axes[i], color='royalblue')
     axes[i].set_title(f'Boxplot de {col}')
     axes[i].set_ylabel('')
 for j in range(i + 1, len(axes)):
@@ -129,7 +129,13 @@ print("Dimensiones de df_limpio:", df_limpio.shape)
 
 # %% [markdown]
 # ## 5. Creación de variables  (Integrante A)
-
+# Variable 1: Proporción del historial crediticio respecto a la edad
+# ¿Qué porcentaje de la vida de la persona abarca su historial de crédito?
+df_limpio['historial_vs_edad'] = df['cb_person_cred_hist_length'] / df['person_age']
+# Variable 2: Monto de interés anual estimado
+# Calcula cuánto dinero representa el interés del préstamo 
+# (Monto del préstamo * (Tasa de interés / 100))
+df_limpio['interes_estimado'] = df['loan_amnt'] * (df['loan_int_rate'] / 100)
 # %% [markdown]
 # ## 6. Filtrado y condiciones en pandas  (Integrante B)
 
