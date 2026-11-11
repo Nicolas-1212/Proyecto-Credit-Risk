@@ -218,6 +218,81 @@ print(res_5)
 print("\nConclusión 5: Los clientes que ya tienen un historial de incumplimiento previo (Y) tienden a endeudarse comprometiendo un mayor porcentaje de sus ingresos anuales frente a los que tienen el historial limpio (N).\n")
 # %% [markdown]
 # ## 8. Visualizaciones  (Integrante B)
+sns.set_theme(style="whitegrid")
+# 1. DISPERSIÓN: ingreso vs monto del préstamo 
+muestra = df_limpio[df_limpio["person_income"] < df_limpio["person_income"].quantile(0.99)]
+plt.figure(figsize=(8, 5))
+sns.scatterplot(data=muestra, x="person_income", y="loan_amnt", alpha=0.3, color="steelblue")
+plt.title("Ingreso vs monto del préstamo")
+plt.xlabel("Ingreso anual")
+plt.ylabel("Monto del préstamo")
+plt.tight_layout()
+plt.show()
+
+corr1 = df_limpio["person_income"].corr(df_limpio["loan_amnt"])
+print(f"Conclusión: la correlación entre ingreso y monto es {corr1:.2f}, "
+      f"{'una relación positiva moderada: quien gana más tiende a pedir más.' if corr1 > 0.3 else 'una relación débil: el monto pedido casi no depende del ingreso.'}")
+
+# 2. BARRAS AGRUPADAS: monto promedio por motivo y tipo de vivienda
+tabla2 = df_limpio.groupby(["loan_intent", "person_home_ownership"])["loan_amnt"].mean().unstack()
+tabla2.plot(kind="bar", figsize=(10, 5))
+plt.title("Monto promedio del préstamo por motivo y tipo de vivienda")
+plt.xlabel("Motivo del préstamo")
+plt.ylabel("Monto promedio")
+plt.xticks(rotation=30)
+plt.legend(title="Vivienda")
+plt.tight_layout()
+plt.show()
+
+prom2 = df_limpio.groupby("loan_intent")["loan_amnt"].mean()
+print(f"Conclusión: el motivo con mayor monto promedio es {prom2.idxmax()} ({prom2.max():,.0f}) "
+      f"y el de menor monto es {prom2.idxmin()} ({prom2.min():,.0f}).")
+
+# 3. CIRCULAR: distribución por tipo de vivienda
+conteo3 = df_limpio["person_home_ownership"].value_counts()
+plt.figure(figsize=(6, 6))
+plt.pie(conteo3, labels=conteo3.index, autopct="%1.1f%%", startangle=90)
+plt.title("Distribución por tipo de vivienda")
+plt.tight_layout()
+plt.show()
+
+print(f"Conclusión: {conteo3.index[0]} es el tipo de vivienda más común "
+      f"({conteo3.iloc[0] / conteo3.sum() * 100:.1f}% de las personas) y "
+      f"{conteo3.index[-1]} el menos común ({conteo3.iloc[-1] / conteo3.sum() * 100:.1f}%).")
+# 4. Histograma: distribución del monto del préstamo
+media4 = df_limpio["loan_amnt"].mean()
+mediana4 = df_limpio["loan_amnt"].median()
+
+plt.figure(figsize=(8, 5))
+sns.histplot(data=df_limpio, x="loan_amnt", bins=20, color="steelblue")
+plt.axvline(media4, color="red", linestyle="--", label=f"Media: {media4:,.0f}")
+plt.axvline(mediana4, color="black", linestyle=":", label=f"Mediana: {mediana4:,.0f}")
+plt.title("Distribución del monto del préstamo")
+plt.xlabel("Monto del préstamo")
+plt.ylabel("Cantidad de préstamos")
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+# 5. BARRAS: incumplimiento por rango de edad 
+df_limpio["rango_edad"] = pd.cut(df_limpio["person_age"], bins=[0, 25, 30, 40, 50, 120],
+                                 labels=["<=25", "26-30", "31-40", "41-50", ">50"])
+tasa5 = df_limpio.groupby("rango_edad", observed=True)["loan_status"].mean().mul(100)
+plt.figure(figsize=(8, 5))
+tasa5.plot(kind="bar", color="slateblue")
+plt.axhline(tasa_global, color="black", linestyle="--", label="Tasa global")
+plt.title("Tasa de incumplimiento por rango de edad")
+plt.xlabel("Rango de edad")
+plt.ylabel("Incumplimiento (%)")
+plt.xticks(rotation=0)
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+print(f"Conclusión: el rango {tasa5.idxmax()} tiene el mayor incumplimiento ({tasa5.max():.2f}%) "
+      f"y el rango {tasa5.idxmin()} el menor ({tasa5.min():.2f}%), con {tasa_global:.2f}% a nivel global. "
+      f"La diferencia entre edades es de {tasa5.max() - tasa5.min():.2f} puntos.")
+
 
 # %% [markdown]
 # ## 9. Conclusiones finales  (Integrante A)
