@@ -37,9 +37,8 @@ antig_rara = (df["person_emp_length"] > 60).sum()
 print(f"Personas con edad mayor a 100 años: {edades_raras}")
 print(f"Personas con más de 60 años de antigüedad laboral: {antig_rara}")
  
-df2 = df.copy()
-df2.loc[df2["person_age"] > 100, "person_age"] = np.nan
-df2.loc[df2["person_emp_length"] > 60, "person_emp_length"] = np.nan
+df_limpio.loc[df_limpio["person_age"] > 100, "person_age"] = np.nan
+df_limpio.loc[df_limpio["person_emp_length"] > 60, "person_emp_length"] = np.nan
 print("\nEstos valores imposibles se convirtieron en datos faltantes (NaN).")
 
 #Imputar datos faltantes o imposibles
