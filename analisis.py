@@ -131,11 +131,11 @@ print("Dimensiones de df_limpio:", df_limpio.shape)
 # ## 5. Creación de variables  (Integrante A)
 # Variable 1: Proporción del historial crediticio respecto a la edad
 # ¿Qué porcentaje de la vida de la persona abarca su historial de crédito?
-df_limpio['historial_vs_edad'] = df['cb_person_cred_hist_length'] / df['person_age']
+df_limpio['historial_vs_edad'] = df_limpio['cb_person_cred_hist_length'] / df_limpio['person_age']
 # Variable 2: Monto de interés anual estimado
 # Calcula cuánto dinero representa el interés del préstamo 
 # (Monto del préstamo * (Tasa de interés / 100))
-df_limpio['interes_estimado'] = df['loan_amnt'] * (df['loan_int_rate'] / 100)
+df_limpio['interes_estimado'] = df_limpio['loan_amnt'] * (df_limpio['loan_int_rate'] / 100)
 # %% [markdown]
 # ## 6. Filtrado y condiciones en pandas  (Integrante B)
 # Filtrado y condiciones en pandas
@@ -296,3 +296,19 @@ print(f"Conclusión: el rango {tasa5.idxmax()} tiene el mayor incumplimiento ({t
 
 # %% [markdown]
 # ## 9. Conclusiones finales  (Integrante A)
+print("CONCLUSIONES FINALES SOBRE EL RIESGO CREDITICIO\n")
+
+print("1. El grado del préstamo (Loan Grade) es el principal indicador de riesgo:")
+print("Se evidenció una relación drástica entre la calificación del préstamo y la probabilidad de impago. Mientras que los préstamos de categorías A y B presentan tasas de default bajas (menores al 17%), el riesgo se dispara en las peores calificaciones: los préstamos de grado F superan el 70% de incumplimiento y los de grado G alcanzan un default casi absoluto (superior al 98%).\n")
+
+print("2. La vulnerabilidad financiera de los arrendatarios:")
+print("La situación de vivienda segmenta claramente el riesgo. Los clientes que viven en arriendo (RENT) tienen una tasa de impago que supera el 31%, lo que representa más del cuádruple de riesgo frente a quienes tienen vivienda propia totalmente pagada (OWN, con un ~7.5%).\n")
+
+print("3. La liquidez actual importa más que la edad o el historial crediticio:")
+print("Las variables con mayor correlación con el impago son el porcentaje del ingreso comprometido y la tasa de interés. Por el contrario, la edad de la persona y la proporción de su vida con historial crediticio mostraron una correlación casi nula. Esto demuestra que la carga financiera mensual del solicitante pesa mucho más en el riesgo que su edad o los años que lleve en el sistema financiero.\n")
+
+print("4. El impacto del historial previo sobre el nivel de endeudamiento:")
+print("El análisis agrupado demostró que los clientes que ya cuentan con un historial de impago en sus antecedentes (cb_person_default_on_file = Y) tienden a adquirir préstamos que comprometen una fracción mayor de sus ingresos anuales en comparación con quienes tienen su historial limpio. Esto refleja un comportamiento financiero donde el riesgo es compuesto: malos antecedentes sumados a una alta exposición salarial actual.\n")
+
+print("5. Perfil de alto riesgo y necesidad de topes de endeudamiento:")
+print("La combinación de altas tasas de interés y un porcentaje alto del ingreso destinado al préstamo conforma el perfil más propenso al default. Como estrategia de negocio, la entidad financiera debe establecer topes más estrictos en el porcentaje de ingreso comprometido permitido, especialmente para clientes arrendatarios o aquellos asignados a categorías de préstamo inferiores.")
