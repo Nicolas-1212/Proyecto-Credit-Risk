@@ -2,3 +2,4 @@
 
 ## Integrantes
 - Nicolás Ramírez Rodríguez (Integrante A)
+- Samuel Arteaga (Integrante B)
