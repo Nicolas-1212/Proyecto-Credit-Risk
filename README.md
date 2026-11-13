@@ -43,3 +43,6 @@ La situación de vivienda segmenta claramente el riesgo. Los clientes que viven 
 
 **3. La liquidez actual importa más que la edad o el historial crediticio:**
 Las variables con mayor correlación con el impago son el porcentaje del ingreso comprometido y la tasa de interés. Por el contrario, la edad de la persona y la proporción de su vida con historial crediticio mostraron una correlación casi nula. Esto demuestra que la carga financiera mensual del solicitante pesa mucho más en el riesgo que su edad o los años que lleve en el sistema financiero.
+
+**4. El impacto del historial previo sobre el nivel de endeudamiento:**
+El análisis agrupado demostró que los clientes que ya cuentan con un historial de impago en sus antecedentes (cb_person_default_on_file = Y) tienden a adquirir préstamos que comprometen una fracción mayor de sus ingresos anuales en comparación con quienes tienen su historial limpio. Esto refleja un comportamiento financiero donde el riesgo es compuesto: malos antecedentes sumados a una alta exposición salarial actual.
