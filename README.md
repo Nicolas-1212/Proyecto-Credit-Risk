@@ -46,3 +46,6 @@ Las variables con mayor correlación con el impago son el porcentaje del ingreso
 
 **4. El impacto del historial previo sobre el nivel de endeudamiento:**
 El análisis agrupado demostró que los clientes que ya cuentan con un historial de impago en sus antecedentes (cb_person_default_on_file = Y) tienden a adquirir préstamos que comprometen una fracción mayor de sus ingresos anuales en comparación con quienes tienen su historial limpio. Esto refleja un comportamiento financiero donde el riesgo es compuesto: malos antecedentes sumados a una alta exposición salarial actual.
+
+**5. Perfil de alto riesgo y necesidad de topes de endeudamiento:**
+La combinación de altas tasas de interés y un porcentaje alto del ingreso destinado al préstamo conforma el perfil más propenso al default. Como estrategia de negocio, la entidad financiera debe establecer topes más estrictos en el porcentaje de ingreso comprometido permitido, especialmente para clientes arrendatarios o aquellos asignados a categorías de préstamo inferiores.
