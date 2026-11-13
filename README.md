@@ -37,3 +37,6 @@ Cada fila representa *una solicitud de préstamo* realizada por un individuo, de
 
 **1. El grado del préstamo (Loan Grade) es el principal indicador de riesgo:**
 Se evidenció una relación drástica entre la calificación del préstamo y la probabilidad de impago. Mientras que los préstamos de categorías A y B presentan tasas de default bajas (menores al 17%), el riesgo se dispara en las peores calificaciones: los préstamos de grado F superan el 70% de incumplimiento y los de grado G alcanzan un default casi absoluto (superior al 98%).
+
+*2. La vulnerabilidad financiera de los arrendatarios:*
+La situación de vivienda segmenta claramente el riesgo. Los clientes que viven en arriendo (RENT) tienen una tasa de impago que supera el 31%, lo que representa más del cuádruple de riesgo frente a quienes tienen vivienda propia totalmente pagada (OWN, con un ~7.5%).
