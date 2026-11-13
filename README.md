@@ -27,3 +27,8 @@ Cada fila representa *una solicitud de préstamo* realizada por un individuo, de
 | loan_percent_income | Numérica continua | Porcentaje del ingreso anual destinado a pagar el préstamo | Proporción (ej. 0.10 = 10%) |
 | cb_person_default_on_file | Categórica | Indicador de si la persona tiene historial previo de impago | Y (Sí) / N (No) |
 | cb_person_cred_hist_length | Numérica discreta | Años de historia crediticia de la persona | Años |
+
+## Organización del repositorio
+- analisis.py: solución final del proyecto.
+- cuadernos/: cuadernos de exploración de Nicolas y Samuel.
+- datos/: base de datos descargada de Kaggle.
