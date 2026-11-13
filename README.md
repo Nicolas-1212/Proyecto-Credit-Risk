@@ -32,3 +32,8 @@ Cada fila representa *una solicitud de préstamo* realizada por un individuo, de
 - analisis.py: solución final del proyecto.
 - cuadernos/: cuadernos de exploración de Nicolas y Samuel.
 - datos/: base de datos descargada de Kaggle.
+
+## Conclusiones finales
+
+**1. El grado del préstamo (Loan Grade) es el principal indicador de riesgo:**
+Se evidenció una relación drástica entre la calificación del préstamo y la probabilidad de impago. Mientras que los préstamos de categorías A y B presentan tasas de default bajas (menores al 17%), el riesgo se dispara en las peores calificaciones: los préstamos de grado F superan el 70% de incumplimiento y los de grado G alcanzan un default casi absoluto (superior al 98%).
