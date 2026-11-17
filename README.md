@@ -49,3 +49,7 @@ El análisis agrupado demostró que los clientes que ya cuentan con un historial
 
 **5. Perfil de alto riesgo y necesidad de topes de endeudamiento:**
 La combinación de altas tasas de interés y un porcentaje alto del ingreso destinado al préstamo conforma el perfil más propenso al default. Como estrategia de negocio, la entidad financiera debe establecer topes más estrictos en el porcentaje de ingreso comprometido permitido, especialmente para clientes arrendatarios o aquellos asignados a categorías de préstamo inferiores.
+
+Evaluacion Saber Git
+ Promedio loan_percent_income = 0.17020349283324637
+ Cuartil 85 = 0.28
